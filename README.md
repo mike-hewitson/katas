@@ -1,7 +1,7 @@
 katas
 =====
 
-Various katas in different languagse
+Various katas in different languages
 
 Initially lots of practise in SML
 
