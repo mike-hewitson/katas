@@ -4,9 +4,11 @@ extern crate regex;
 pub fn add_string(number_string: &str) -> i32 {
 	let mut sum: i32 = 0;
 	let re = regex::Regex::new(r",|\n").unwrap();
-	let re2 = regex::Regex::new(r"\[.\]").unwrap();
+	let re2 = regex::Regex::new(r"//(\[.*?\])\n").unwrap();
 	let test = re2.captures(number_string).unwrap();
 	println!("Here i am :{:?}", test.at(0));
+	println!("Here i am :{:?}", test.at(1));
+	println!("Here i am :{:?}", test.at(2));
 	let list_nums = re.split(number_string);
 	for s in list_nums {
 		if s != "" {
@@ -49,6 +51,6 @@ mod tests {
 	}	
 	#[test]
 	fn it_should_support_custom_delimiter() {
-		assert_eq!(21, add_string("xvvvv//[;]\n1;2;3;4;5;6"));
+		assert_eq!(21, add_string("//;\n1;2;3;4;5;6"));
 	}	
 }
