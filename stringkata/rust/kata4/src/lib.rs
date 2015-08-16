@@ -5,23 +5,34 @@ use regex::Regex;
 pub fn add_string(string_number: &str) -> i32 {
     let mut sum: i32 = 0;
     let re2 = regex::Regex::new(r"//(.)\n").unwrap();
-    let try_delimiter = re2.captures(string_number);
-    // let try_delimiter = re2.captures(string_number).unwrap();
-    
-    println!("Here i am :{:?}", try_delimiter);
-    let delimiter =
-        match try_delimiter.at(0) {
-            Some(x) => x,
-            None    => ",|\n"
+    println!("{:?}", re2.is_match(string_number) );
+    if re2.is_match(string_number) {
+        let delimiter = {
+            match re2.captures(string_number).unwrap().at(0) {
+                Some(x) => x,
+                None    => ",|\n"
+            }
         };
-    let re = Regex::new(delimiter).unwrap();   
+        
+        // let split_regex = re2;
+    } else {
+        let re2 = regex::Regex::new(r",|\n").unwrap();
+    }
+    // let re = regex::Regex::new(r"//(.)\n").unwrap();
+    // println!("{:?}", re.is_match(string_number) );
+
+    // let try_delimiter = re2.captures(string_number);
+    // // let try_delimiter = re2.captures(string_number).unwrap();
+    
+    // println!("Here i am :{:?}", try_delimiter.unwrap());
+    // let re = Regex::new(delimiter).unwrap();   
     // println!("Here i am :{:?}", try_delimiter.at(0));
     // println!("Here i am :{:?}", try_delimiter.at(1));
     // println!("Here i am :{:?}", try_delimiter.at(2));
 
     // let re = Regex::new(test.at(0)).unwrap();
     if string_number != "" {
-        let list_strings = re.split(string_number);
+        let list_strings = re2.split(string_number);
         for s in list_strings {
             let x: i32 = s.trim().parse()
                             .ok()
