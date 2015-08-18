@@ -1,29 +1,36 @@
 extern crate regex;
 
-pub fn find_custom_delimiter(string_number: &str) -> &str {
+pub fn find_delimiter(string_number: &str) -> &str {
 
+    let re_custom = regex::Regex::new(r"//(.)\n").unwrap();
+    let delimiter: &str;
+
+    if re_custom.is_match(string_number) {
+            delimiter = 
+                match re_custom.captures(string_number).unwrap().at(1) {
+                    Some(x) => x,
+                    None    => ""
+                };
+    } else {
+        delimiter = ",|\n";
+    }
+
+    return delimiter;  
 }
 
 pub fn add_string(string_number: &str) -> i32 {
     
     let mut sum: i32 = 0;
     let delimiter: &str;
-    let trim_string: & str;
-
+    let trim_string: &str;
 
     if string_number != "" {
-        let re_custom = regex::Regex::new(r"//(.)\n").unwrap();
-
-        if re_custom.is_match(string_number) {
+        delimiter = find_delimiter(string_number);
+ 
+        if delimiter != ",|\n" {
             trim_string = &string_number[4..];
-            delimiter = 
-                match re_custom.captures(string_number).unwrap().at(1) {
-                    Some(x) => x,
-                    None    => ",|\n"
-                };
         } else {
-            delimiter = ",|\n";
-            trim_string = string_number;
+            trim_string = &string_number;
         }
 
         let re = regex::Regex::new(delimiter).unwrap();
