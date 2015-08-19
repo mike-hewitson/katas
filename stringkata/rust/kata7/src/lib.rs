@@ -1,8 +1,8 @@
 extern crate regex;
 
-pub fn get_delimiter(string_numbers: &str) -> (&str,u16) {
+pub fn get_delimiter(string_numbers: &str) -> (&str,usize) {
 	let delimiter: &str;
-	let mut string_start: u16 = 0;
+	let mut string_start: usize = 0;
 	let re = regex::Regex::new(r"//(.)\n").unwrap();
 	if re.is_match(string_numbers) {
 		delimiter =
@@ -22,15 +22,14 @@ pub fn get_delimiter(string_numbers: &str) -> (&str,u16) {
 pub fn add_string(string_numbers: &str) -> i32 {
 	let mut sum: i32 = 0;
 	let delimiter: &str;
-	let string_start: u16;
+	let string_start: usize;
 	
 	if string_numbers == "" {
 		sum = 0;
 	} else {
 		let (delimiter, string_start) = get_delimiter(string_numbers);
 		let re = regex::Regex::new(delimiter).unwrap();
-		let split_string: &str = &string_numbers[delimiter..];
-		for s in re.split(split_string) {
+		for s in re.split(&string_numbers[string_start..]) {
 			let x: i32 = s.trim().parse()
 					.ok()
 					.expect("Not a numeric");
