@@ -1,19 +1,13 @@
 extern crate regex;
 
 pub fn get_demiliter(string_numbers: &str) -> (&str, usize) {
-	let delimiter:&str;
-	let string_start: usize;
-
 	let re_custom = regex::Regex::new("//(.)\n").unwrap();
 
 	if re_custom.is_match(string_numbers) {
-		delimiter = re_custom.captures(string_numbers).unwrap().at(1).unwrap();
-		string_start = 4;
+		return (re_custom.captures(string_numbers).unwrap().at(1).unwrap(), 4);
 	} else {
-		delimiter = ",|\n";
-		string_start = 0;
+		return (",|\n", 0);
 	}
-	return(delimiter, string_start);
 }
 
 pub fn add_string(string_numbers: &str) -> i32 {
