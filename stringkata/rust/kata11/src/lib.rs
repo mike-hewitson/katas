@@ -20,17 +20,19 @@ fn get_delimiter(string_numbers: &str) -> (regex::Regex, usize) {
     } else {
         if re_custom_multi.is_match(string_numbers) {
   
-           return (regex::Regex::new(re_custom_multi
-                        .captures(string_numbers)
-                        .unwrap()
-                        .at(1)
-                        .unwrap())
-                            .unwrap(),
-                    re_custom_multi.captures(string_numbers)
-                        .unwrap()
-                        .at(0)
-                        .unwrap()
-                        .len());
+           let delimiter = re_custom_multi
+                            .captures(string_numbers)
+                            .unwrap()
+                            .at(1)
+                            .unwrap();
+            let re = regex::Regex::new(delimiter)
+                        .unwrap();
+            let start_pos = re_custom_multi.captures(string_numbers)
+                                .unwrap()
+                                .at(0)
+                                .unwrap()
+                                .len();
+            return (re, start_pos);
 
         } else {
             
@@ -43,7 +45,7 @@ fn get_delimiter(string_numbers: &str) -> (regex::Regex, usize) {
 
 pub fn add_string(string_numbers: &str) -> i32 {
 
-    let mut sum: i32 = 0;
+    let mut sum = 0;
     let mut list_negatives: Vec<i32> = vec![];
 
     let (re, start_pos) = get_delimiter(string_numbers);
