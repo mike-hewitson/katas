@@ -9,7 +9,8 @@ extern crate regex;
 fn get_delimiters(string_numbers: &str) -> (regex::Regex, usize) {
 
     let re_custom_single = regex::Regex::new(r"//(.)\n").unwrap();
-    let re_custom_long = regex::Regex::new(r"//\[(.*)\]\n").unwrap();
+    let re_custom_long = regex::Regex::new(r"\[(.*?)\]").unwrap();
+    let re_custom_get_all = regex::Regex::new(r"//(.*?)\n").unwrap();
 
     if re_custom_single.is_match(string_numbers) {
 
@@ -21,17 +22,22 @@ fn get_delimiters(string_numbers: &str) -> (regex::Regex, usize) {
         return (re, 4);
 
     } else {
-        if re_custom_long.is_match(string_numbers) {
+        if re_custom_get_all.is_match(string_numbers) {
 
-            let delimiter = re_custom_long.captures(string_numbers)
-                                .unwrap()
-                                .at(1)
-                                .unwrap();
-            let re = regex::Regex::new(delimiter).unwrap();
-            let start_position = re_custom_long.captures(string_numbers)
+            let mut string_list: Vec<&str> = vec![];
+
+            let start_position = re_custom_get_all.captures(string_numbers)
                                 .unwrap()
                                 .at(0)
                                 .unwrap().len();
+ 
+            for cap in re_custom_long.captures_iter(string_numbers) {
+                string_list.push(cap.at(1).unwrap());
+            }
+
+           let delimiters = string_list.connect("|");
+            
+            let re = regex::Regex::new(&delimiters).unwrap();
             return (re, start_position); 
 
         } else {
@@ -118,6 +124,10 @@ mod tests {
     #[test]
     fn should_return_sum_when_given_n_numbers_custom_delim_any_length() {
         assert_eq!(6, add_string("//[aaa]\n1aaa2aaa3"));
+    }
+    #[test]
+    fn should_return_sum_when_given_n_numbers_n_customs_delim_any_length() {
+        assert_eq!(6, add_string("//[aaa][bbb][v]\n1aaa2bbb3"));
     }
 
 }
