@@ -1,17 +1,44 @@
 extern crate regex;
 
-fn get_delimiter(string_numbers: &str) -> (&str, usize) {
+fn get_delimiter(string_numbers: &str) -> (regex::Regex, usize) {
 	
 	let re_custom_short = regex::Regex::new(r"//(.)\n").unwrap();
+	let re_custom_long = regex::Regex::new(r"//(.*)\n").unwrap();
+	let re_custom_strip_delim = regex::Regex::new(r"\[(.*?)\]").unwrap();
+
 
 	if re_custom_short.is_match(string_numbers) {
+
 		let delimiter = re_custom_short.captures(string_numbers)
 							.unwrap()
 							.at(1)
 							.unwrap();
-		return (delimiter, 4); 
+		let re = regex::Regex::new(delimiter).unwrap();
+
+		return (re, 4); 
 	} else {
-		return (",|\n", 0);
+		if re_custom_long.is_match(string_numbers) {
+
+			let mut delimiter_list: Vec<&str> = vec![];
+			let all_delimiters = re_custom_long.captures(string_numbers)
+								.unwrap()
+								.at(1)
+								.unwrap();
+
+			for s in re_custom_strip_delim.captures_iter(all_delimiters) {
+				delimiter_list.push(s.at(1).unwrap());
+			}
+
+			let re = regex::Regex::new(&delimiter_list.connect("|")).unwrap();
+			let start_position = re_custom_long.captures(string_numbers)
+								.unwrap()
+								.at(0)
+								.unwrap()
+								.len();
+			return (re, start_position); 
+		} else {
+			return (regex::Regex::new(",|\n").unwrap(), 0);
+		}
 	}
 }
 
@@ -20,11 +47,7 @@ pub fn add_string(string_numbers: &str) -> i32 {
 
 	let mut sum: i32 = 0;
 	let mut list_negatives: Vec<i32> = vec![];
-	let (delimiter, start_position) = get_delimiter(string_numbers);
-	println!("{:?}", delimiter);
-	println!("{:?}", start_position);
-
-	let re = regex::Regex::new(delimiter).unwrap();
+	let (re , start_position) = get_delimiter(string_numbers);
 
 	if string_numbers != "" {
 		for s in re.split(&string_numbers[start_position..]) {
@@ -86,8 +109,12 @@ mod tests {
 	fn should_ignore_numbers_gt_1000() {
 		assert_eq!(1001, add_string("1,1000,1001"));
 	}
-	// #[test]
-	// fn should_ignore_numbers_gt_1000() {
-	// 	assert_eq!(1001, add_string("1,1000,1001"));
-	// }
+	#[test]
+	fn should_support_custom_delim_multi_char() {
+		assert_eq!(6, add_string("//[abc]\n1abc2abc3"));
+	}
+	#[test]
+	fn should_support_multiple_custom_delim_multi_char() {
+		assert_eq!(6, add_string("//[abc][de]\n1abc2de3"));
+	}
 }
