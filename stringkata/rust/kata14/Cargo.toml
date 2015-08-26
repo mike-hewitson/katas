@@ -1,0 +1,8 @@
+[package]
+name = "kata14"
+version = "0.1.0"
+authors = ["mike hewitson <mike@hewitson.co.za>"]
+
+[dependencies]
+
+regex = '0.1.8'
