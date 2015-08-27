@@ -5,7 +5,7 @@ fn get_delimiters(string_numbers:&str) -> (regex::Regex, usize) {
 
 	let re_custom_short = regex::Regex::new(r"//(.)\n").unwrap();
 	let re_custom_long = regex::Regex::new(r"//(.*)\n").unwrap();
-	let re_delim_split = regex::Regex::new(r"\[(.*?)\]").unwrap();
+	let re_extract_delims = regex::Regex::new(r"\[(.*?)\]").unwrap();
 
 	if re_custom_short.is_match(&string_numbers) {
 
@@ -17,17 +17,18 @@ fn get_delimiters(string_numbers:&str) -> (regex::Regex, usize) {
 		
 		return (re, 4);
 	} else {
-		if re_custom_long.is_match(string_numbers) {
-			
-			let mut list_delimiters: Vec<&str> = vec![];
-			let delimiters = re_custom_long.captures(&string_numbers)
+		if re_custom_long.is_match(&string_numbers) {
+
+			let mut list_delims: Vec<&str> = vec![];
+
+			let string_delims = re_custom_long.captures(&string_numbers)
 								.unwrap()
 								.at(1)
 								.unwrap();
-			for cap in re_delim_split.captures_iter(&delimiters) {
-				list_delimiters.push(cap.at(1).unwrap());
+			for cap in re_extract_delims.captures_iter(&string_delims) {
+				list_delims.push(&cap.at(1).unwrap());
 			}
-			let re = regex::Regex::new(&list_delimiters.connect("|")).unwrap();
+			let re = regex::Regex::new(&list_delims.connect("|")).unwrap();
 			let start_position = re_custom_long.captures(&string_numbers)
 								.unwrap()
 								.at(0)
