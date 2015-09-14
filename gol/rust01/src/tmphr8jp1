@@ -22,13 +22,9 @@ impl Default for Point {
     }
 }
 
-pub fn count_neighbours(&p: Point, &world: Vec<Point>) -> i32 {
-	for point in world {
-		if is_neighbour(p, point) {
-			point.live_neighbours += 1;
-		}
-	}
-}
+// pub fn count_neighbours(p: Point, world: Vec<Point>) -> i32 {
+	
+// }
 
 pub fn is_neighbour(p1: &Point, p2: &Point) -> bool {
 	if p1.x == p2.x && p1.y == p2.y {
@@ -47,7 +43,7 @@ pub fn main() {
 	let bob: Point = Point {x:0, y: 0, ..Default::default()};
 
 	let mut world: Vec<Point> = vec![];
-	// let mut candidates: Vec<Point> = vec![];
+	let mut candidates: Vec<Point> = vec![];
 	world.push(bob);
 }
 
@@ -73,9 +69,8 @@ fn cell_cant_be_its_own_neighbour() {
 
 #[test]
 fn should_return_number_of_live_adjacent_cells_when_0() {
-	let bob: Point = Point {x:0, y: 0, ..Default::default()};
-	let mut world: Vec<Point> = vec![]; 
-	world.push(Point {x:0, y: 0, ..Default::default()});
-	assert_eq!(0, count_neighbours(&bob, &world))
+	let world
+	let p1: Point = Point {x:0, y: 0, ..Default::default()};
+	assert_eq!(0, count_neighbours(bob))
 }
 

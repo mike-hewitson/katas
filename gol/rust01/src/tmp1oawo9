@@ -23,11 +23,7 @@ impl Default for Point {
 }
 
 pub fn count_neighbours(&p: Point, &world: Vec<Point>) -> i32 {
-	for point in world {
-		if is_neighbour(p, point) {
-			point.live_neighbours += 1;
-		}
-	}
+	for point in w
 }
 
 pub fn is_neighbour(p1: &Point, p2: &Point) -> bool {
