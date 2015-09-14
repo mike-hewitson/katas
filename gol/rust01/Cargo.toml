@@ -1,0 +1,7 @@
+[package]
+name = "rust01"
+version = "0.1.0"
+authors = ["mike hewitson <mike@hewitson.co.za>"]
+
+[dependencies]
+num = "0"
