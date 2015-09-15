@@ -23,14 +23,14 @@ impl Default for Point {
     }
 }
 
-pub fn count_neighbours(p: &Point, world: &HashMap) -> i32 {
-	let mut num_neigbours: i32 = 0;
-	for point in world {
-		// if is_neighbour(p, point) && point.current_state == true {
-		// 	num_neigbours += 1;
-		// }
+pub fn count_neighbours(p: (i32, i32), world: HashMap<(i32,i32), Point>) -> i32 {
+	let mut num_neighbours: i32 = 0;
+	for ( &pp , point) in world.iter() {
+		if is_neighbour(p, pp) && point.current_state == true { 
+			num_neighbours += 1;
+		}
 	}
-	return num_neigbours
+	return num_neighbours;
 }
 
 pub fn is_neighbour(p1: (i32, i32), p2: (i32, i32)) -> bool {
@@ -49,22 +49,22 @@ pub fn is_neighbour(p1: (i32, i32), p2: (i32, i32)) -> bool {
 	}
 }
 
-pub fn populate_neighbours(world: &mut Vec<Point>) {
+pub fn populate_neighbours(world: &mut HashMap<(i32,i32), Point>) {
 	for i in 0..(world.len()-1) {
-		world[i].live_neighbours = count_neighbours(&world[i], &world);
+		// world[i].live_neighbours = count_neighbours(&world[i], &world);
 	}
 }
 
-pub fn populate_candidates(world: &Vec<Point>, candidates: &mut Vec<Point>) {
-	for point in world {
-		candidates.push(Point {x:(point.x - 1), y:(point.y - 1), ..Default::default()});
-		candidates.push(Point {x:(point.x - 1), y:(point.y), ..Default::default()});
-		candidates.push(Point {x:(point.x - 1), y:(point.y + 1), ..Default::default()});
-		candidates.push(Point {x:(point.x), y:(point.y - 1), ..Default::default()});
-		candidates.push(Point {x:(point.x), y:(point.y + 1), ..Default::default()});
-		candidates.push(Point {x:(point.x + 1), y:(point.y - 1), ..Default::default()});
-		candidates.push(Point {x:(point.x + 1), y:(point.y), ..Default::default()});
-		candidates.push(Point {x:(point.x + 1), y:(point.y + 1), ..Default::default()});
+pub fn populate_candidates(world: HashMap<(i32,i32), Point>, candidates: &mut HashMap<(i32,i32), Point>) {
+	for ( &(x,y) , point) in world.iter() {
+		candidates.insert( ( x - 1, y - 1),  Point {x:(point.x - 1), y:(point.y - 1), ..Default::default()});
+		candidates.insert( ( x - 1, y ),  Point {x:(point.x - 1), y:(point.y - 1), ..Default::default()});
+		candidates.insert( ( x - 1, y + 1),  Point {x:(point.x - 1), y:(point.y - 1), ..Default::default()});
+		candidates.insert( ( x, y - 1),  Point {x:(point.x - 1), y:(point.y - 1), ..Default::default()});
+		candidates.insert( ( x, y + 1),  Point {x:(point.x - 1), y:(point.y - 1), ..Default::default()});
+		candidates.insert( ( x + 1, y - 1),  Point {x:(point.x - 1), y:(point.y - 1), ..Default::default()});
+		candidates.insert( ( x + 1, y),  Point {x:(point.x - 1), y:(point.y - 1), ..Default::default()});
+		candidates.insert( ( x + 1, y + 1),  Point {x:(point.x - 1), y:(point.y - 1), ..Default::default()});
 	}
 }
 
@@ -85,6 +85,7 @@ mod tests {
 
 	// use super::are_cells_neighbours;
 	use super::*;
+	use std::collections::HashMap;
 
 	#[test]
 	fn are_cells_neighbours() {
@@ -108,77 +109,92 @@ mod tests {
 
 	#[test]
 	fn should_return_number_of_live_adjacent_cells_when_0() {
-		let bob: Point = Point {x:0, y: 0, ..Default::default()};
+		let bob = (0,0);
 		let mut world = HashMap::new(); 
 		world.insert( (0,0), Point {x:0, y: 0, ..Default::default()});
-		world.insert((0,0), Point {x:2, y: 2, ..Default::default()});
-		assert_eq!(0, count_neighbours(&bob, &world))
+		world.insert( (0,0), Point {x:2, y: 2, ..Default::default()});
+		assert_eq!(0, count_neighbours(bob, world))
 	}
 
 	#[test]
 	fn should_return_number_of_live_adjacent_cells_when_1() {
-		let bob: Point = Point {x:0, y: 0, ..Default::default()};
-		let mut world: Vec<Point> = vec![]; 
-		world.push(Point {x:1, y: 1, ..Default::default()});
-		assert_eq!(1, count_neighbours(&bob, &world))
+		let bob = (0, 0);
+		let mut world = HashMap::new(); 
+		world.insert( (1,1), Point {x:1, y: 1, ..Default::default()});
+		assert_eq!(1, count_neighbours(bob, world))
 	}
 
 	#[test]
 	fn should_return_number_of_live_adjacent_cells_when_2() {
-		let bob: Point = Point {x:0, y: 0, ..Default::default()};
-		let mut world: Vec<Point> = vec![]; 
-		world.push(Point {x:0, y: 1, ..Default::default()});
-		world.push(Point {x:1, y: 0, ..Default::default()});
-		assert_eq!(2, count_neighbours(&bob, &world))
+		let bob = (0, 0);
+		let mut world = HashMap::new(); 
+		world.insert( (0,1), Point {x:0, y: 1, ..Default::default()});
+		world.insert( (1,0), Point {x:1, y: 0, ..Default::default()});
+		assert_eq!(2, count_neighbours(bob, world))
 	}
 
 	#[test]
 	fn should_return_number_of_live_adjacent_cells_when_8() {
-		let bob: Point = Point {x:0, y: 0, ..Default::default()};
-		let mut world: Vec<Point> = vec![]; 
-		world.push(Point {x:-1, y: -1, ..Default::default()});
-		world.push(Point {x:-1, y: 0, ..Default::default()});
-		world.push(Point {x:-1, y: 1, ..Default::default()});
-		world.push(Point {x:0, y: -1, ..Default::default()});
-		world.push(Point {x:0, y: 1, ..Default::default()});
-		world.push(Point {x:1, y: -1, ..Default::default()});
-		world.push(Point {x:1, y: 0, ..Default::default()});
-		world.push(Point {x:1, y: 1, ..Default::default()});
-		assert_eq!(8, count_neighbours(&bob, &world))
+		let bob = (0, 0);
+		let mut world = HashMap::new(); 
+		world.insert( (-1,-1), Point {x:-1, y: -1, ..Default::default()});
+		world.insert( (-1,0), Point {x:-1, y: 0, ..Default::default()});
+		world.insert( (-1, 1), Point {x:-1, y: 1, ..Default::default()});
+		world.insert( (0, -1),Point {x:0, y: -1, ..Default::default()});
+		world.insert( (0, 1), Point {x:0, y: 1, ..Default::default()});
+		world.insert( (1,-1), Point {x:1, y: -1, ..Default::default()});
+		world.insert( (1,0), Point {x:1, y: 0, ..Default::default()});
+		world.insert( (1,1), Point {x:1, y: 1, ..Default::default()});
+		assert_eq!(8, count_neighbours(bob, world))
 	}
 
 	#[test]
 	fn should_check_state_when_returning_nighbours() {
-		let bob: Point = Point {x:0, y: 0, ..Default::default()};
-		let mut world: Vec<Point> = vec![]; 
-		world.push(Point {x:0, y: 1, ..Default::default()});
-		world.push(Point {x:1, y: 0, ..Default::default()});
-		world.push(Point {x:1, y: 1, current_state: false, ..Default::default()});
-		assert_eq!(2, count_neighbours(&bob, &world))
+		let bob = (0, 0);
+		let mut world = HashMap::new(); 
+		world.insert( (0,1), Point {x:0, y: 1, ..Default::default()});
+		world.insert( (1,0), Point {x:1, y: 0, ..Default::default()});
+		world.insert( (1,1), Point {x:1, y: 1, current_state: false, ..Default::default()});
+		assert_eq!(2, count_neighbours(bob, world))
 	}
 
 	#[test]
 	fn should_populate_all_neighbours() {
-		let mut world: Vec<Point> = vec![]; 
-		world.push(Point {x:0, y: 1, ..Default::default()});
-		world.push(Point {x:1, y: 0, ..Default::default()});
-		world.push(Point {x:1, y: 1, current_state: false, ..Default::default()});
+		let mut world = HashMap::new(); 
+		world.insert( (0,1), Point {x:0, y: 1, ..Default::default()});
+		world.insert( (1,0), Point {x:1, y: 0, ..Default::default()});
 		populate_neighbours(&mut world);
-		let ref p0 = world[0];
-		let ref p1 = world[1];
-		let ref p2 = world[2];
+		let p0 = world.get(&(0,1));
 		assert_eq!(1, p0.live_neighbours);
-		assert_eq!(1, p1.live_neighbours);
-		assert_eq!(0, p2.live_neighbours);
 	}
 
 	#[test]
 	fn should_create_candidate_list_1_point() {
-		let mut world: Vec<Point> = vec![]; 
-		let mut candidates: Vec<Point> = vec![]; 
-		world.push(Point {x:0, y: 1, ..Default::default()});
-		populate_candidates(&world, &mut candidates);
+		let mut world = HashMap::new(); 
+		let mut candidates = HashMap::new(); 
+		world.insert( (0,1),  Point {x:0, y: 1, ..Default::default()});
+		populate_candidates(world, &mut candidates);
 		assert_eq!(8, candidates.len());
+	}
+
+	#[test]
+	fn should_create_candidate_list_2_points() {
+		let mut world = HashMap::new(); 
+		let mut candidates = HashMap::new(); 
+		world.insert( (0,1),  Point {x:0, y: 1, ..Default::default()});
+		world.insert( (0,4),  Point {x:0, y: 4, ..Default::default()});
+		populate_candidates(world, &mut candidates);
+		assert_eq!(16, candidates.len());
+	}
+
+	#[test]
+	fn should_create_candidate_list_2_points_with_intersect() {
+		let mut world = HashMap::new(); 
+		let mut candidates = HashMap::new(); 
+		world.insert( (0,1),  Point {x:0, y: 1, ..Default::default()});
+		world.insert( (0,3),  Point {x:0, y: 4, ..Default::default()});
+		populate_candidates(world, &mut candidates);
+		assert_eq!(13, candidates.len());
 	}
 
 }
