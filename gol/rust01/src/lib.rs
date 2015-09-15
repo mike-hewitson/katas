@@ -23,21 +23,25 @@ impl Default for Point {
     }
 }
 
-pub fn count_neighbours(p: &Point, world: &Vec<Point>) -> i32 {
+pub fn count_neighbours(p: &Point, world: &HashMap) -> i32 {
 	let mut num_neigbours: i32 = 0;
 	for point in world {
-		if is_neighbour(p, point) && point.current_state == true {
-			num_neigbours += 1;
-		}
+		// if is_neighbour(p, point) && point.current_state == true {
+		// 	num_neigbours += 1;
+		// }
 	}
 	return num_neigbours
 }
 
-pub fn is_neighbour(p1: &Point, p2: &Point) -> bool {
-	if p1.x == p2.x && p1.y == p2.y {
+pub fn is_neighbour(p1: (i32, i32), p2: (i32, i32)) -> bool {
+
+	let (x1, y1): (i32, i32) = p1;
+	let (x2, y2): (i32, i32) = p2;
+
+	if x1 == x2 && y1 == y2 {
 		false
 	} else {
-		if abs(p1.x - p1.y) < 2 && abs(p1.y - p2.y) < 2 {
+		if abs(x1 - x2) < 2 && abs(y1 - y2) < 2 {
 			true
 		} else {
 			false
@@ -65,12 +69,15 @@ pub fn populate_candidates(world: &Vec<Point>, candidates: &mut Vec<Point>) {
 }
 
 pub fn main() {
-
 	let bob: Point = Point {x:0, y: 0, ..Default::default()};
 
-	let mut world: Vec<Point> = vec![];
+	let mut world = HashMap::new();
+	world.insert((0,0), bob);
+
+
+	// let mut world: Vec<Point> = vec![];
 	// let mut candidates: Vec<Point> = vec![];
-	world.push(bob);
+	// world.push(bob);
 }
 
 #[cfg(test)]
@@ -81,30 +88,30 @@ mod tests {
 
 	#[test]
 	fn are_cells_neighbours() {
-		let p1: Point = Point {x:0, y: 0, ..Default::default()};
-		let p2: Point = Point {x:0, y: 1, ..Default::default()};
-		let p3: Point = Point {x:1, y: 2, ..Default::default()};
-		let p4: Point = Point {x:0, y: 2, ..Default::default()};
-		let p5: Point = Point {x:0, y: 3, ..Default::default()};
-		assert_eq!(true, is_neighbour(&p1, &p2));
-		assert_eq!(false, is_neighbour(&p1, &p3));
-		assert_eq!(true, is_neighbour(&p2, &p3));
-		assert_eq!(false, is_neighbour(&p1, &p4));
-		assert_eq!(false, is_neighbour(&p1, &p5));
+		let p1 = (0,0);
+		let p2 = (0,1);
+		let p3 = (1,2);
+		let p4 = (0,2);
+		let p5 = (0,3);
+		assert_eq!(true, is_neighbour(p1, p2));
+		assert_eq!(false, is_neighbour(p1, p3));
+		assert_eq!(true, is_neighbour(p2, p3));
+		assert_eq!(false, is_neighbour(p1, p4));
+		assert_eq!(false, is_neighbour(p1, p5));
 	}
 
 	#[test]
 	fn cell_cant_be_its_own_neighbour() {
-		let p1: Point = Point {x:0, y: 0, ..Default::default()};
-		assert_eq!(false, is_neighbour(&p1, &p1));
+		let p1 = (0,0);
+		assert_eq!(false, is_neighbour(p1, p1));
 	}
 
 	#[test]
 	fn should_return_number_of_live_adjacent_cells_when_0() {
 		let bob: Point = Point {x:0, y: 0, ..Default::default()};
-		let mut world: Vec<Point> = vec![]; 
-		world.push(Point {x:0, y: 0, ..Default::default()});
-		world.push(Point {x:2, y: 2, ..Default::default()});
+		let mut world = HashMap::new(); 
+		world.insert( (0,0), Point {x:0, y: 0, ..Default::default()});
+		world.insert((0,0), Point {x:2, y: 2, ..Default::default()});
 		assert_eq!(0, count_neighbours(&bob, &world))
 	}
 
