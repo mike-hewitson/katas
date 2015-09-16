@@ -2,7 +2,7 @@ extern crate num;
 use num::abs;
 use std::collections::HashMap;
 
-#[derive(Debug, Copy, Clone)]
+
 pub struct Point {
 	current_state: bool,
 	future_state: bool,
@@ -47,10 +47,9 @@ pub fn is_neighbour(p1: (i32, i32), p2: (i32, i32)) -> bool {
 
 pub fn populate_neighbours(world: &mut HashMap<(i32,i32), Point>) {
 	for ( &coords , point) in world.iter() {
-		let mut future_point: Point = *point;
+		let mut future_point = point;
 		let neigh = count_neighbours(coords, &world);
-		future_point.live_neighbours = neigh;
-		world.insert(coords, future_point);
+		// world[i].live_neighbours = count_neighbours(&world[i], &world);
 	}
 }
 
@@ -69,11 +68,11 @@ pub fn populate_candidates(world: HashMap<(i32,i32), Point>, candidates: &mut Ha
 
 pub fn main() {
 	let bob: Point = Point {live_neighbours: 15, ..Default::default()};
+	let x
 	let mut world = HashMap::new();
-	world.insert((0,0), bob);
-	let x = world.get(&(0,0));
-	let n = x.live_neighbours;
-	println!("{:?}", x);
+	// world.insert((0,0), bob);
+	// let x = world.get(&(0,0));
+	// let n = x.live_neighbours;
 	println!("{:?}", bob.live_neighbours);
 
 	// let mut world: Vec<Point> = vec![];
@@ -167,7 +166,7 @@ mod tests {
 		populate_neighbours(&mut world);
 		let p0 = world.get(&(0,1));
 		// println!("{:?}", p0);
-		// let x = p0.live_neighbours;
+		let x = p0.live_neighbours;
 		// assert_eq!(1, p0.live_neighbours);
 	}
 

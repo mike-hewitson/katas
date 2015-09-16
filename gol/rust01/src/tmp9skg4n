@@ -47,10 +47,9 @@ pub fn is_neighbour(p1: (i32, i32), p2: (i32, i32)) -> bool {
 
 pub fn populate_neighbours(world: &mut HashMap<(i32,i32), Point>) {
 	for ( &coords , point) in world.iter() {
-		let mut future_point: Point = *point;
+		let mut future_point = point;
 		let neigh = count_neighbours(coords, &world);
-		future_point.live_neighbours = neigh;
-		world.insert(coords, future_point);
+		world;
 	}
 }
 
