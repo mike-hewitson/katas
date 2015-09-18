@@ -1,0 +1,8 @@
+f
+
+
+
+#[test]
+fn when_given_empty_string_it_should_return_zero() {
+	assert_eq!(0, add(""));
+}
