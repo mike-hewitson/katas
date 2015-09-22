@@ -47,23 +47,18 @@ pub fn is_neighbour(p1: (i32, i32), p2: (i32, i32)) -> bool {
 
 pub fn populate_neighbours(world: &mut HashMap<(i32,i32), Point>) {
 
-	let mut temp_updates = HashMap::new();
-	
-	for ( &coords, point) in world.iter() {
+	let mut temp_updates = H
+	for ( &coords, point) in world.iter_move() {
 		let mut future_point: Point = point.clone();
 		let neigh = count_neighbours(coords, &world);
-		if future_point.live_neighbours != neigh {
-			future_point.live_neighbours = neigh;
-			temp_updates.insert( coords, future_point);
-		}
-	}
-	for ( &coords, point) in temp_updates.iter() {
-		*world.get_mut(&coords).unwrap() = point.clone();;
+		println!("neighbours {:?}", neigh);
+		future_point.live_neighbours = neigh;
+		*world.get_mut(&coords).unwrap() = future_point;
 	}
 }
 
 pub fn populate_candidates(world: HashMap<(i32,i32), Point>, candidates: &mut HashMap<(i32,i32), Point>) {
-	for ( &(x,y) , _) in world.iter() {
+	for ( &(x,y) , point) in world.iter() {
 		candidates.insert( ( x - 1, y - 1),  Point {..Default::default()});
 		candidates.insert( ( x - 1, y ),  Point {..Default::default()});
 		candidates.insert( ( x - 1, y + 1),  Point {..Default::default()});
@@ -75,19 +70,14 @@ pub fn populate_candidates(world: HashMap<(i32,i32), Point>, candidates: &mut Ha
 	}
 }
 
-pub fn merge_candidates_into_world(world: HashMap<(i32,i32), Point>, candidates: &mut HashMap<(i32,i32)>) {
-	// Todo
-	return
-}
-
 pub fn main() {
 	let bob: Point = Point {live_neighbours: 15, ..Default::default()};
 	let mut world = HashMap::new();
 	world.insert((0,0), bob);
 	let x: Point = world.get(&(0,0)).unwrap().clone();
-	// let n = x.live_neighbours;
+	let n = x.live_neighbours;
 	println!("x {:?}", x);
-	println!("bob.live {:?}", x.live_neighbours);
+	println!("bob.live {:?}", bob.live_neighbours);
 
 	// let mut world: Vec<Point> = vec![];
 	// let mut candidates: Vec<Point> = vec![];
@@ -205,17 +195,6 @@ mod tests {
 	fn should_create_candidate_list_2_points_with_intersect() {
 		let mut world = HashMap::new(); 
 		let mut candidates = HashMap::new(); 
-		world.insert( (0,1),  Point {..Default::default()});
-		world.insert( (0,3),  Point {..Default::default()});
-		populate_candidates(world, &mut candidates);
-		assert_eq!(13, candidates.len());
-	}
-
-	#[test]
-	fn should_merge_candidates_into_world() {
-		let mut world = HashMap::new(); 
-		let mut candidates = HashMap::new(); 
-		// todo
 		world.insert( (0,1),  Point {..Default::default()});
 		world.insert( (0,3),  Point {..Default::default()});
 		populate_candidates(world, &mut candidates);

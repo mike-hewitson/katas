@@ -77,7 +77,7 @@ pub fn populate_candidates(world: HashMap<(i32,i32), Point>, candidates: &mut Ha
 
 pub fn merge_candidates_into_world(world: HashMap<(i32,i32), Point>, candidates: &mut HashMap<(i32,i32)>) {
 	// Todo
-	return
+	r
 }
 
 pub fn main() {

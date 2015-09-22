@@ -75,10 +75,7 @@ pub fn populate_candidates(world: HashMap<(i32,i32), Point>, candidates: &mut Ha
 	}
 }
 
-pub fn merge_candidates_into_world(world: HashMap<(i32,i32), Point>, candidates: &mut HashMap<(i32,i32)>) {
-	// Todo
-	return
-}
+pub fn merge_
 
 pub fn main() {
 	let bob: Point = Point {live_neighbours: 15, ..Default::default()};
@@ -205,17 +202,6 @@ mod tests {
 	fn should_create_candidate_list_2_points_with_intersect() {
 		let mut world = HashMap::new(); 
 		let mut candidates = HashMap::new(); 
-		world.insert( (0,1),  Point {..Default::default()});
-		world.insert( (0,3),  Point {..Default::default()});
-		populate_candidates(world, &mut candidates);
-		assert_eq!(13, candidates.len());
-	}
-
-	#[test]
-	fn should_merge_candidates_into_world() {
-		let mut world = HashMap::new(); 
-		let mut candidates = HashMap::new(); 
-		// todo
 		world.insert( (0,1),  Point {..Default::default()});
 		world.insert( (0,3),  Point {..Default::default()});
 		populate_candidates(world, &mut candidates);
