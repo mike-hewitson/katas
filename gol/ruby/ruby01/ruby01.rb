@@ -28,6 +28,8 @@ class World
 				if 
 		end
 
+ # seriously wtf
+
 end
 
 world = [Point.new(1,2), Point.new(2,3)]
