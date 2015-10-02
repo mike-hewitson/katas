@@ -51,13 +51,13 @@ class World
 		for i in 0..@points.length-1
 			self.get_neighbours(i)
 		end
-
-
-		# populate all neighbours
-
-		# scan through and populate future state
-	
 	end
+
+	def populate_future_state
+		@points.each do |point|
+			point.calc_future_state
+		end
+	end		
 
 end
 
@@ -143,49 +143,89 @@ describe "World" do
 		end
 
 	end
-		describe ".get_neighbours" do
-			it "should return the correct number of neighbours when there is one" do
-				world = World.new
-				world.add_point(Point.new(1,2))
-				world.add_point(Point.new(1,1))
-				world.get_neighbours(0)
-				world.get_neighbours(1)
-				expect(world.points[0].neighbours).to eq 1
-				expect(world.points[1].neighbours).to eq 1
-			end	
-			it "should return the correct number of neighbours when there are two" do
-				world = World.new
-				world.add_point(Point.new(1,1))
-				world.add_point(Point.new(1,2))
-				world.add_point(Point.new(1,0))
-				world.get_neighbours(0)
-				expect(world.points[0].neighbours).to eq 2
-			end
-		end
-	end	
-	describe ".populate_all_neighbours" do
-		it "should return the correct number of neighbours when there is one point" do
-			world = World.new
-			world.add_point(Point.new(1,2))
-			world.populate_all_neighbours
-			expect(world.points[0].neighbours).to eq 0
-		end
-		it "should return the correct number of neighbours when there are two points" do
+	describe ".get_neighbours" do
+		it "should return the correct number of neighbours when there is one" do
 			world = World.new
 			world.add_point(Point.new(1,2))
 			world.add_point(Point.new(1,1))
-			world.populate_all_neighbours
+			world.get_neighbours(0)
+			world.get_neighbours(1)
 			expect(world.points[0].neighbours).to eq 1
 			expect(world.points[1].neighbours).to eq 1
 		end	
-		it "should return the correct number of neighbours when there are three adjacent points" do
+		it "should return the correct number of neighbours when there are two" do
 			world = World.new
 			world.add_point(Point.new(1,1))
 			world.add_point(Point.new(1,2))
-			world.add_point(Point.new(1,3))
-			world.populate_all_neighbours
-			expect(world.points[0].neighbours).to eq 1
-			expect(world.points[1].neighbours).to eq 2
-			expect(world.points[2].neighbours).to eq 1
+			world.add_point(Point.new(1,0))
+			world.get_neighbours(0)
+			expect(world.points[0].neighbours).to eq 2
 		end
+	end
+
+	context " (world with one point)" do
+		before do
+			@world = World.new
+			@world.add_point(Point.new(1,2))		
+			@world.populate_all_neighbours
+		end
+		describe ".populate_all_neighbours" do
+			it "should return the correct number of neighbours" do
+				expect(@world.points[0].neighbours).to eq 0
+			end
+		end	
+		describe ".populate_future_state" do
+			it "should return the correct future state" do
+				@world.populate_future_state
+				expect(@world.points[0].future_state).to eq :dead
+			end
+		end
+	end
+
+	context "(world with two points)" do
+		before do
+			@world = World.new
+			@world.add_point(Point.new(1,2))		
+			@world.add_point(Point.new(1,1))
+			@world.populate_all_neighbours
+		end
+		describe ".populate_all_neighbours" do
+			it "should return the correct number of neighbours" do
+				expect(@world.points[0].neighbours).to eq 1
+				expect(@world.points[1].neighbours).to eq 1
+			end	
+		end
+		describe ".populate_future_state" do
+			it "should return the correct future state" do
+				@world.populate_future_state
+				expect(@world.points[0].future_state).to eq :dead
+				expect(@world.points[1].future_state).to eq :dead
+			end
+		end
+	end
+
+	context "(world with three adjacent points)" do
+		before do
+			@world = World.new
+			@world.add_point(Point.new(1,1))
+			@world.add_point(Point.new(1,2))		
+			@world.add_point(Point.new(1,3))
+			@world.populate_all_neighbours
+		end
+		describe ".populate_all_neighbours" do
+			it "should return the correct number of neighbours" do
+				expect(@world.points[0].neighbours).to eq 1
+				expect(@world.points[1].neighbours).to eq 2
+				expect(@world.points[2].neighbours).to eq 1
+			end
+		end
+		describe ".populate_future_state" do
+			it "should return the correct future state" do
+				@world.populate_future_state
+				expect(@world.points[0].future_state).to eq :dead
+				expect(@world.points[1].future_state).to eq :alive
+				expect(@world.points[2].future_state).to eq :dead
+			end
+		end
+	end
 end
