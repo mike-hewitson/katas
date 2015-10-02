@@ -18,16 +18,21 @@ class World
 		@points = []
 		@points.push(point)
 	end
+
 	def add_point(point)
 		@points.push(point)
 	end
-	def get_neighbours(index)
-		points.each do |point|
-			neighbours = 0
-			if points[index].x != point.x or points[index].y != point.y do
-				if 
-		end
 
+	def get_neighbours(index)
+		for points.each do |point|
+			neighbours = 0
+			if points[index].x != point.x or points[index].y != point.y 
+				if abs(points[index].x - point.x) < 2 and abs(points[index].y - point.y) < 2
+					neighbours++
+				end
+			end
+		end
+	end
 end
 
 world = [Point.new(1,2), Point.new(2,3)]
