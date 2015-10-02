@@ -32,7 +32,9 @@ class World
 				end
 			end
 		end
+
 	end
+
 end
 
 world = [Point.new(1,2), Point.new(2,3)]
