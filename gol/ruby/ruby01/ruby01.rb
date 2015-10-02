@@ -1,13 +1,18 @@
 class Point 
-	attr_reader :x, :y, :neighbours
+	attr_reader :x, :y, :neighbours, :future_state
 	def initialize(x,y)
 		@x = x
 		@y = y
 		@neighbours = 0
+		@future_state = :dead
 	end
 
 	def set_neighbours(neighbours)
 		@neighbours = neighbours
+	end
+
+	def set_future_state(future_state)
+		@future_state = future_state
 	end
 
 end
@@ -24,16 +29,25 @@ class World
 	end
 
 	def get_neighbours(index)
-		for points.each do |point|
+		points.each do |point|
 			neighbours = 0
 			if points[index].x != point.x or points[index].y != point.y 
-				if abs(points[index].x - point.x) < 2 and abs(points[index].y - point.y) < 2
-					neighbours++
+				puts "in here"
+				if (points[index].x - point.x).abs < 2 and (points[index].y - point.y).abs < 2
+					neighbours += 1
 				end
-			end
+				points[index].set_neighbours(neighbours)
+			end 
 		end
-
 	end
+
+	# def calc_future_state(index)
+	# 	case points[index].neighbours
+	# 	when neighbours < 2
+	# 		points[index].set_future_state :alive
+			
+	# 	end
+	# end
 
 end
 
@@ -59,6 +73,17 @@ describe "Point" do
 			expect(point.neighbours).to eq 4
 		end
 	end
+	describe ".set_future_state" do
+		it "should return a future state of :dead when new point" do
+			point = Point.new(1,2)
+			expect(point.future_state).to eq :dead
+		end
+		it "should return a future state of :alive when set" do
+			point = Point.new(1,2)
+			point.set_future_state(:alive)			
+			expect(point.future_state).to eq :alive
+		end
+	end
 end
 
 describe "World" do
@@ -77,11 +102,11 @@ describe "World" do
 			expect(world.points[1].y).to eq 4
 		end
 	end	
-	describe ".get_neigbours" do
+	describe ".get_neighbours" do
 		it "should return the correct number of neighbours when there is one" do
 			world = World.new(Point.new(1,2))
 			world.add_point(Point.new(1,1))
-			world.get_neigbours(0)
+			world.get_neighbours(0)
 			expect(world.points[0].neighbours).to eq 1
 		end
 	end
