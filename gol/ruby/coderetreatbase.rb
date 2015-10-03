@@ -1,27 +1,17 @@
-class Point 
-	attr_reader :x, :y, :current_state
-	def initialize(x,y)
-		@x = x
-		@y = y
-		@current_state = :alive
-	end
-end
+Coordinate = Struct.new(:x, :y) 
+Cell = Struct.new(:Coordinate)
 
-class World
-
-end
+# class Cell
+#   def initialize(coord)
+# end
 
 
 
-
-
-
-describe "Point" do
+describe "Cell" do
 	describe ".initialize" do
 		it "should return x,y " do
-			point = Point.new(1,2)
-			expect(point.x).to eq 1
-			expect(point.y).to eq 2
+			cell = Cell.new(Coodinates.new(1,2))
+			expect(cell.coordinates).to eq Coordinates.new(1,2)
 		end
 	end
 
