@@ -1,3 +1,19 @@
+class Position
+	attr_reader :x, :y
+	def initialise(x,y)
+		@x = x
+		@y = y
+	end
+
+	def eql(other)
+		if @x = other.x and @y = other.y
+			true
+		else
+			false
+		end
+	end
+end
+
 class Point 
 	attr_reader :x, :y, :neighbours, :future_state
 	def initialize(x,y)
