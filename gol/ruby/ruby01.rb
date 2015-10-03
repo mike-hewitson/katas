@@ -84,13 +84,20 @@ class World
 end
 
 world = World.new
-world.add_point(Point.new(1,1))
-world.add_point(Point.new(1,2))		
-world.add_point(Point.new(1,3))
+world.add_point(Point.new(0,0))
+world.add_point(Point.new(1,0))		
+world.add_point(Point.new(-1,0))
+world.add_point(Point.new(0,1))
+world.add_point(Point.new(0,-1))
 world.list("before anything")
 world.populate_all_neighbours
 world.populate_future_state
-world.list("the new world")
+new_world = world.create_new_world
+new_world.list("the new world")
+new_world.populate_all_neighbours
+new_world.populate_future_state
+newer_world = new_world.create_new_world
+newer_world.list("the newer world")
 
 
 describe "Point" do
@@ -190,10 +197,8 @@ describe "World" do
 		describe ".create_new_world" do
 			it "should return the an empty world" do
 				@world.populate_future_state
-				@world.list("current world")
-				@new_world = @world.create_new_world
-				@new_world.list("new world")
-				expect(@wnew_world.num_points_in_world).to eq 0
+				new_world = @world.create_new_world
+				expect(new_world.num_points_in_world).to eq 0
 			end
 		end
 	end
@@ -262,9 +267,27 @@ describe "World" do
 			it "should return the correct new world with one point" do
 				@world.populate_future_state
 				@new_world = @world.create_new_world
-				expect(@wnew_world.points[0].x).to eq 1
-				expect(@wnew_world.points[0].y).to eq 2
-				expect(@wnew_world.points[0].future_state).to eq :alive
+				expect(@new_world.num_points_in_world).to eq 1
+				expect(@new_world.points[0].x).to eq 1
+				expect(@new_world.points[0].y).to eq 2
+			end
+		end
+	end	
+	context "(world with five adjacent points)" do
+		before do
+			@world = World.new
+			@world.add_point(Point.new(0,0))
+			@world.add_point(Point.new(1,0))		
+			@world.add_point(Point.new(-1,0))
+			@world.add_point(Point.new(0,1))
+			@world.add_point(Point.new(0,-1))
+			@world.populate_all_neighbours
+		end
+		describe ".create_new_world" do
+			it "should return the correct new world with one point" do
+				@world.populate_future_state
+				@new_world = @world.create_new_world
+				expect(@new_world.num_points_in_world).to eq 4
 			end
 		end
 	end
