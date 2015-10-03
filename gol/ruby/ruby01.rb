@@ -36,7 +36,7 @@ class World
 		@points.push(point)
 	end
 
-	def get_neighbours(index) # get the neighbours for one point
+	def get_neighbours(index) 
 		neighbours = 0
 		@points.each do |point|
 			if @points[index].x != point.x or @points[index].y != point.y 				
@@ -47,6 +47,7 @@ class World
 			@points[index].set_neighbours(neighbours)
 		end
 	end
+
 	def populate_all_neighbours 
 		for i in 0..@points.length-1
 			self.get_neighbours(i)
@@ -58,12 +59,9 @@ class World
 			point.calc_future_state
 		end
 	end		
-
 end
 
 world = [Point.new(1,2), Point.new(2,3)]
-
-
 
 
 describe "Point" do
