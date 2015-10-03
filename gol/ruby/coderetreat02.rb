@@ -2,21 +2,8 @@ require "set"
 
 Coordinate = Struct.new(:x, :y) 
 
-class Cell 
-	attr_reader :coordinate
-	def initialize(x,y)
-		@coordinate = Coordinate.new(x,y)
-	end
-
-	def eql(point)
-		self.coordinate = point.coordinate
-	end
-
-	def adjacent_to?(cell)
-		(cell.coordinate.x - self.coordinate.x).abs < 2 and (cell.coordinate.y - self.coordinate.y).abs < 2 and !(self.coordinate == cell.coordinate)
-	end
-
-
+def adjacent?(a,b)
+	(a.x - b.x).abs < 2 and (a.y - b.y).abs < 2
 end
 
 class World
@@ -25,16 +12,16 @@ class World
 		@cells = Set.new
 	end
 
-	def add_cell(cell)
-		@cells.add(cell)
+	def add_cell(point)
+		@cells.add(point)
 	end
 
-	def has_cell(cell)
-		@cells.member?(cell)
+	def has_cell(point)
+		@cells.member?(point)
 	end
 
 	def neighbours_for(cell)
-		@cells.select{|c| c.adjacent_to?(cell)}.count()
+		@cells.select{|c| adjacent_to?(c, cell)}.count()
 	end
 
 	def create_set_of_nascent_cells
@@ -46,22 +33,12 @@ class World
 	end
 end
 
-
-describe "Cell" do
-	describe ".initialize" do
-		it "should return coordinate " do
-			cell = Cell.new(1,2)
-			expect(cell.coordinate).to eq Coordinate.new(1,2)
-		end
-	end
-end
-
 describe "World " do
 	context "empty" do
 		before do
 			@world = World.new
-			@cell1 = Cell.new(1,2)
-			@world.add_cell(@cell1)
+			@point = Coordinate.new(1,2)
+			@world.add_cell(@point)
 		end		
 		describe ".initialize" do
 			it "with a cell" do

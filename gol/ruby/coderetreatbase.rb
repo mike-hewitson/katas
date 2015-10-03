@@ -1,11 +1,4 @@
 Coordinate = Struct.new(:x, :y) 
-Cell = Struct.new(:Coordinate)
-
-# class Cell
-#   def initialize(coord)
-# end
-
-
 
 describe "Cell" do
 	describe ".initialize" do
