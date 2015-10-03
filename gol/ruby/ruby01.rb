@@ -59,9 +59,38 @@ class World
 			point.calc_future_state
 		end
 	end		
+
+	def create_new_world
+		new_world = World.new
+		@points.each do |point|
+			if point.future_state == :alive
+				new_world.add_point(point)
+			end
+		end
+		return new_world
+	end
+
+	def list(heading)
+		puts heading
+		@points.each do |point|
+			puts "Point x = #{point.x} y = #{point.y} neighbours = #{point.neighbours} future_state = #{point.future_state}"
+		end
+	end
+
+	def num_points_in_world
+		return @points.length
+	end
+
 end
 
-world = [Point.new(1,2), Point.new(2,3)]
+world = World.new
+world.add_point(Point.new(1,1))
+world.add_point(Point.new(1,2))		
+world.add_point(Point.new(1,3))
+world.list("before anything")
+world.populate_all_neighbours
+world.populate_future_state
+world.list("the new world")
 
 
 describe "Point" do
@@ -123,44 +152,24 @@ end
 describe "World" do
 	context "empty world" do
 		before do
-			world = World.new
-			world.add_point(Point.new(1,2))
-			world.add_point(Point.new(3,4))
+			@world = World.new
+			@world.add_point(Point.new(1,2))
+			@world.add_point(Point.new(3,4))
 		end		
 		describe ".initialize" do
 			it "should initialise with a point" do
-				expect(world.points[0].x).to eq 1
-				expect(world.points[0].y).to eq 2
+				expect(@world.points[0].x).to eq 1
+				expect(@world.points[0].y).to eq 2
 			end
 		end
 		describe ".add_point" do
 			it "should add a second point" do
-				expect(world.points[1].x).to eq 3
-				expect(world.points[1].y).to eq 4
+				expect(@world.points[1].x).to eq 3
+				expect(@world.points[1].y).to eq 4
 			end
 		end
 
 	end
-	describe ".get_neighbours" do
-		it "should return the correct number of neighbours when there is one" do
-			world = World.new
-			world.add_point(Point.new(1,2))
-			world.add_point(Point.new(1,1))
-			world.get_neighbours(0)
-			world.get_neighbours(1)
-			expect(world.points[0].neighbours).to eq 1
-			expect(world.points[1].neighbours).to eq 1
-		end	
-		it "should return the correct number of neighbours when there are two" do
-			world = World.new
-			world.add_point(Point.new(1,1))
-			world.add_point(Point.new(1,2))
-			world.add_point(Point.new(1,0))
-			world.get_neighbours(0)
-			expect(world.points[0].neighbours).to eq 2
-		end
-	end
-
 	context " (world with one point)" do
 		before do
 			@world = World.new
@@ -178,6 +187,15 @@ describe "World" do
 				expect(@world.points[0].future_state).to eq :dead
 			end
 		end
+		describe ".create_new_world" do
+			it "should return the an empty world" do
+				@world.populate_future_state
+				@world.list("current world")
+				@new_world = @world.create_new_world
+				@new_world.list("new world")
+				expect(@wnew_world.num_points_in_world).to eq 0
+			end
+		end
 	end
 
 	context "(world with two points)" do
@@ -187,6 +205,15 @@ describe "World" do
 			@world.add_point(Point.new(1,1))
 			@world.populate_all_neighbours
 		end
+		describe ".get_neighbours" do
+			it "should return the correct number of neighbours when there is one" do
+				@world.get_neighbours(0)
+				@world.get_neighbours(1)
+				expect(@world.points[0].neighbours).to eq 1
+				expect(@world.points[1].neighbours).to eq 1
+			end	
+		end
+
 		describe ".populate_all_neighbours" do
 			it "should return the correct number of neighbours" do
 				expect(@world.points[0].neighbours).to eq 1
@@ -210,6 +237,12 @@ describe "World" do
 			@world.add_point(Point.new(1,3))
 			@world.populate_all_neighbours
 		end
+		describe ".get_neighbours" do
+			it "should return the correct number of neighbours when there are two" do
+				@world.get_neighbours(1)
+				expect(@world.points[1].neighbours).to eq 2
+			end
+		end
 		describe ".populate_all_neighbours" do
 			it "should return the correct number of neighbours" do
 				expect(@world.points[0].neighbours).to eq 1
@@ -223,6 +256,15 @@ describe "World" do
 				expect(@world.points[0].future_state).to eq :dead
 				expect(@world.points[1].future_state).to eq :alive
 				expect(@world.points[2].future_state).to eq :dead
+			end
+		end
+		describe ".create_new_world" do
+			it "should return the correct new world with one point" do
+				@world.populate_future_state
+				@new_world = @world.create_new_world
+				expect(@wnew_world.points[0].x).to eq 1
+				expect(@wnew_world.points[0].y).to eq 2
+				expect(@wnew_world.points[0].future_state).to eq :alive
 			end
 		end
 	end
