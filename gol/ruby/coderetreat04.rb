@@ -1,11 +1,18 @@
-require "set"
+	require "set"
 
 Coordinate = Struct.new(:x, :y) 
+
+SQUARE = Set.new << Coordinate.new(1,0) << Coordinate.new(1,1) << Coordinate.new(0,0) << Coordinate.new(0,1)
+BLINKER = Set.new << Coordinate.new(1,0) << Coordinate.new(1,1) << Coordinate.new(1,2)
+TOAD = Set.new << Coordinate.new(1,0) << Coordinate.new(1,1) << Coordinate.new(1,2) << Coordinate.new(1,3) << Coordinate.new(0,1) << Coordinate.new(0,2) << Coordinate.new(0,4) << Coordinate.new(0,4)
 
 def adjacent?(a,b)
 	(a.x - b.x).abs < 2 and (a.y - b.y).abs < 2
 end
 
+def print_cell(cell)
+	puts "x = #{cell.x} y = #{cell.y}"
+end
 
 class World
 	attr_reader :cells
@@ -34,28 +41,54 @@ class World
 				end
 			end
 		end
-		@candidates = @candidates.select{|cell| !self.contains?(cell)}
+		@candidates.subtract(@cells)
+	end
 
+	def print_me
+		puts "world"
+		@cells.each do |cell|
+			puts "x = #{cell.x} y = #{cell.y} neighbours #{self.neighbours(cell)}"
+		end
+		puts "-----#{@cells.size}-----"
 	end
 
 	def tick
 		new_world = Set.new
-		@cells.select{|c| self.neighbours(c) < 2}.each do |cell|
+		@cells.select{|c| self.neighbours(c).between?(2,2)}.each do |cell|
 			new_world << cell
 		end
+
 		self.create_candidates
-		puts @candidates.size
 
-
-		puts @candidates.select{|c| self.neighbours(c) == 3}.size
-
-		@candidates.select{|c| self.neighbours(c) == 3}.each do |cell|
-			puts "hello"
+		@candidates.select{|c| self.neighbours(c) == 2}.each do |cell|
 			new_world << cell
-		end			
+		end
+
+		if @cells == new_world
+			return false
+		else
+			@cells = new_world
+			return true
+		end
+
 	end
+
+	def start_world(shape)
+		@cells = shape
+	end
+
 end
 
+
+world = World.new
+world.start_world(BLINKER)
+puts "before tick"
+world.print_me
+while world.tick	
+	puts "after tick"
+	world.print_me
+	sleep 2
+end
 
 describe "World" do
 	context "empty" do
@@ -96,8 +129,10 @@ describe "World" do
 			it "should return a hrizontal bar" do
 				@world.tick
 				expect(@world.contains?(Coordinate.new(0,1))).to eq true
+				expect(@world.contains?(Coordinate.new(1,0))).to eq false
 				expect(@world.contains?(Coordinate.new(1,1))).to eq true
 				expect(@world.contains?(Coordinate.new(2,1))).to eq true
+				expect(@world.contains?(Coordinate.new(1,2))).to eq false
 			end
 		end
 	end
