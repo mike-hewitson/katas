@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class World - RDoc Documentation</title>
+
+<link href="./fonts.css" rel="stylesheet">
+<link href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/navigation.js"></script>
+<script src="./js/search_index.js"></script>
+<script src="./js/search.js"></script>
+<script src="./js/searcher.js"></script>
+<script src="./js/darkfish.js"></script>
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-add_cell">#add_cell</a>
+    
+    <li ><a href="#method-i-add_point">#add_point</a>
+    
+    <li ><a href="#method-i-contains-3F">#contains?</a>
+    
+    <li ><a href="#method-i-create_candidates">#create_candidates</a>
+    
+    <li ><a href="#method-i-create_new_world">#create_new_world</a>
+    
+    <li ><a href="#method-i-create_set_of_nascent_cells">#create_set_of_nascent_cells</a>
+    
+    <li ><a href="#method-i-find_neighbours">#find_neighbours</a>
+    
+    <li ><a href="#method-i-get_neighbours">#get_neighbours</a>
+    
+    <li ><a href="#method-i-has_cell">#has_cell</a>
+    
+    <li ><a href="#method-i-has_cell-3F">#has_cell?</a>
+    
+    <li ><a href="#method-i-list">#list</a>
+    
+    <li ><a href="#method-i-neighbours">#neighbours</a>
+    
+    <li ><a href="#method-i-neighbours_for">#neighbours_for</a>
+    
+    <li ><a href="#method-i-num_points_in_world">#num_points_in_world</a>
+    
+    <li ><a href="#method-i-populate_all_neighbours">#populate_all_neighbours</a>
+    
+    <li ><a href="#method-i-populate_future_state">#populate_future_state</a>
+    
+    <li ><a href="#method-i-print_me">#print_me</a>
+    
+    <li ><a href="#method-i-size">#size</a>
+    
+    <li ><a href="#method-i-start_world">#start_world</a>
+    
+    <li ><a href="#method-i-tick">#tick</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-World">
+  <h1 id="class-World" class="class">
+    class World
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-cells" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">cells</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-points" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">points</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File coderetreat01.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+        <span class="ruby-ivar">@points</span> = []
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-add_cell" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_cell</span><span
+            class="method-args">(point)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_cell-source">
+            <pre><span class="ruby-comment"># File coderetreat02.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_cell</span>(<span class="ruby-identifier">point</span>)
+        <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">point</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-add_point" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_point</span><span
+            class="method-args">(point)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_point-source">
+            <pre><span class="ruby-comment"># File coderetreat01.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_point</span>(<span class="ruby-identifier">point</span>)
+        <span class="ruby-ivar">@points</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">point</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-contains-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">contains?</span><span
+            class="method-args">(cell)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="contains-3F-source">
+            <pre><span class="ruby-comment"># File coderetreat04.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">contains?</span>(<span class="ruby-identifier">cell</span>)
+        <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">cell</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-create_candidates" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_candidates</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_candidates-source">
+            <pre><span class="ruby-comment"># File coderetreat04.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_candidates</span>
+        <span class="ruby-ivar">@candidates</span> = <span class="ruby-constant">Set</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cell</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">for</span> <span class="ruby-identifier">x</span> <span class="ruby-keyword">in</span> <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">x</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span> <span class="ruby-operator">..</span> <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+                        <span class="ruby-keyword">for</span> <span class="ruby-identifier">y</span> <span class="ruby-keyword">in</span> <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span> <span class="ruby-operator">..</span> <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">y</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+                                <span class="ruby-ivar">@candidates</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Coordinate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>)
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-ivar">@candidates</span>.<span class="ruby-identifier">subtract</span>(<span class="ruby-ivar">@cells</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-create_new_world" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_new_world</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_new_world-source">
+            <pre><span class="ruby-comment"># File ruby01.rb, line 79</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_new_world</span>
+        <span class="ruby-identifier">new_world</span> = <span class="ruby-constant">World</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-ivar">@points</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">point</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">point</span>.<span class="ruby-identifier">future_state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:alive</span>
+                        <span class="ruby-identifier">new_world</span>.<span class="ruby-identifier">add_point</span>(<span class="ruby-identifier">point</span>)
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">new_world</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-create_set_of_nascent_cells" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_set_of_nascent_cells</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_set_of_nascent_cells-source">
+            <pre><span class="ruby-comment"># File coderetreat02.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_set_of_nascent_cells</span>
+        <span class="ruby-identifier">nascent_cells</span> = <span class="ruby-constant">Set</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cell</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">nascent_cells</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">cell</span>.<span class="ruby-identifier">dead_neigbours</span>)
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">nascent_cells</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-find_neighbours" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_neighbours</span><span
+            class="method-args">(this_point)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_neighbours-source">
+            <pre><span class="ruby-comment"># File coderetreat01.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_neighbours</span>(<span class="ruby-identifier">this_point</span>)
+        <span class="ruby-identifier">neighbours</span> = <span class="ruby-value">0</span>
+        <span class="ruby-ivar">@points</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">point</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">this_point</span>.<span class="ruby-identifier">x</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">point</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">this_point</span>.<span class="ruby-identifier">y</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">point</span>.<span class="ruby-identifier">y</span>  
+                        <span class="ruby-keyword">if</span> (<span class="ruby-identifier">this_point</span>.<span class="ruby-identifier">x</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">point</span>.<span class="ruby-identifier">x</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span> <span class="ruby-keyword">and</span> (<span class="ruby-identifier">this_point</span>.<span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">point</span>.<span class="ruby-identifier">y</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span>
+                                <span class="ruby-identifier">neighbours</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">this_point</span>.<span class="ruby-identifier">set_neighbours</span> = <span class="ruby-identifier">neighbours</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_neighbours" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_neighbours</span><span
+            class="method-args">(index)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_neighbours-source">
+            <pre><span class="ruby-comment"># File ruby01.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_neighbours</span>(<span class="ruby-identifier">index</span>) 
+        <span class="ruby-identifier">neighbours</span> = <span class="ruby-value">0</span>
+        <span class="ruby-ivar">@points</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">point</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@points</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">x</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">point</span>.<span class="ruby-identifier">x</span> <span class="ruby-keyword">or</span> <span class="ruby-ivar">@points</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">y</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">point</span>.<span class="ruby-identifier">y</span>                                
+                        <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@points</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">x</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">point</span>.<span class="ruby-identifier">x</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span> <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@points</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">point</span>.<span class="ruby-identifier">y</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span>
+                                <span class="ruby-identifier">neighbours</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span> 
+                <span class="ruby-ivar">@points</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">set_neighbours</span>(<span class="ruby-identifier">neighbours</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-has_cell" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_cell</span><span
+            class="method-args">(point)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="has_cell-source">
+            <pre><span class="ruby-comment"># File coderetreat02.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_cell</span>(<span class="ruby-identifier">point</span>)
+        <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">point</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-has_cell-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_cell?</span><span
+            class="method-args">(cell)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="has_cell-3F-source">
+            <pre><span class="ruby-comment"># File coderetreat03.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_cell?</span>(<span class="ruby-identifier">cell</span>)
+        <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">cell</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">list</span><span
+            class="method-args">(heading)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="list-source">
+            <pre><span class="ruby-comment"># File ruby01.rb, line 89</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">list</span>(<span class="ruby-identifier">heading</span>)
+        <span class="ruby-identifier">puts</span> <span class="ruby-identifier">heading</span>
+        <span class="ruby-ivar">@points</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">point</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Point x = #{point.x} y = #{point.y} neighbours = #{point.neighbours} future_state = #{point.future_state}&quot;</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-neighbours" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">neighbours</span><span
+            class="method-args">(cell)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="neighbours-source">
+            <pre><span class="ruby-comment"># File coderetreat03.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">neighbours</span>(<span class="ruby-identifier">cell</span>)
+        <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">neighbours?</span>(<span class="ruby-identifier">c</span>.<span class="ruby-identifier">coordinates</span>, <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">coordinates</span>)}.<span class="ruby-identifier">count</span>() <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-neighbours_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">neighbours_for</span><span
+            class="method-args">(cell)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="neighbours_for-source">
+            <pre><span class="ruby-comment"># File coderetreat02.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">neighbours_for</span>(<span class="ruby-identifier">cell</span>)
+        <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">adjacent_to?</span>(<span class="ruby-identifier">c</span>, <span class="ruby-identifier">cell</span>)}.<span class="ruby-identifier">count</span>()
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-num_points_in_world" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">num_points_in_world</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="num_points_in_world-source">
+            <pre><span class="ruby-comment"># File ruby01.rb, line 96</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">num_points_in_world</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-ivar">@points</span>.<span class="ruby-identifier">length</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-populate_all_neighbours" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">populate_all_neighbours</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="populate_all_neighbours-source">
+            <pre><span class="ruby-comment"># File ruby01.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">populate_all_neighbours</span> 
+        <span class="ruby-keyword">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-ivar">@points</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>
+                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_neighbours</span>(<span class="ruby-identifier">i</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-populate_future_state" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">populate_future_state</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="populate_future_state-source">
+            <pre><span class="ruby-comment"># File ruby01.rb, line 73</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">populate_future_state</span>
+        <span class="ruby-ivar">@points</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">point</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">point</span>.<span class="ruby-identifier">calc_future_state</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-print_me" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">print_me</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="print_me-source">
+            <pre><span class="ruby-comment"># File coderetreat04.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">print_me</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;world&quot;</span>
+        <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cell</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;x = #{cell.x} y = #{cell.y} neighbours #{self.neighbours(cell)}&quot;</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;-----#{@cells.size}-----&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-size" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">size</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="size-source">
+            <pre><span class="ruby-comment"># File coderetreat03.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">size</span>
+        <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">size</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-start_world" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start_world</span><span
+            class="method-args">(shape)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="start_world-source">
+            <pre><span class="ruby-comment"># File coderetreat04.rb, line 76</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start_world</span>(<span class="ruby-identifier">shape</span>)
+        <span class="ruby-ivar">@cells</span> = <span class="ruby-identifier">shape</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-tick" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">tick</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="tick-source">
+            <pre><span class="ruby-comment"># File coderetreat03.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tick</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@cells</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span> 
+                <span class="ruby-ivar">@cells</span> = <span class="ruby-constant">Set</span>.<span class="ruby-identifier">new</span>
+                <span class="ruby-identifier">cell</span> = <span class="ruby-constant">Cell</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Coordinates</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>,<span class="ruby-value">1</span>))
+                <span class="ruby-ivar">@cells</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cell</span>
+                <span class="ruby-identifier">cell</span> = <span class="ruby-constant">Cell</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Coordinates</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">1</span>,<span class="ruby-value">1</span>))
+                <span class="ruby-ivar">@cells</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cell</span>
+                <span class="ruby-identifier">cell</span> = <span class="ruby-constant">Cell</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Coordinates</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">2</span>,<span class="ruby-value">1</span>))
+                <span class="ruby-ivar">@cells</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cell</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://rdoc.rubyforge.org">RDoc</a> 4.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

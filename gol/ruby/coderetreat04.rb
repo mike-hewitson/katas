@@ -1,4 +1,4 @@
-	require "set"
+require "set"
 
 Coordinate = Struct.new(:x, :y) 
 
@@ -54,13 +54,13 @@ class World
 
 	def tick
 		new_world = Set.new
-		@cells.select{|c| self.neighbours(c).between?(2,2)}.each do |cell|
+		@cells.select{|c| self.neighbours(c).between?(2,3)}.each do |cell|
 			new_world << cell
 		end
 
 		self.create_candidates
 
-		@candidates.select{|c| self.neighbours(c) == 2}.each do |cell|
+		@candidates.select{|c| self.neighbours(c) == 2}.each do |cell| #this has been reduced by one as the cell has itself as neighbours
 			new_world << cell
 		end
 
@@ -80,8 +80,10 @@ class World
 end
 
 
+
+
 world = World.new
-world.start_world(BLINKER)
+world.start_world(SQUARE)
 puts "before tick"
 world.print_me
 while world.tick	
@@ -89,6 +91,7 @@ while world.tick
 	world.print_me
 	sleep 2
 end
+puts "WORLD STATIC NOW"
 
 describe "World" do
 	context "empty" do
