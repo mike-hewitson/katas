@@ -71,7 +71,7 @@ class World
 
 	def size
 		size = @cells.map{|cell| [cell.x.abs, cell.y.abs].max}.max
-		return size + 20
+		return size * 2 + 20
 	end
 
 	def start_world(shape)

@@ -13,10 +13,9 @@ class GameWindow < Gosu::Window
 		@color = Gosu::Color.new(0xff_ffffff)
 		@world = World.new
 		load_shape = Set.new
-		CSV.foreach('glider_106.lif', { :col_sep => ' '}) do |row|
+		CSV.foreach('gunstar2_106.lif', { :col_sep => ' '}) do |row|
 			if row[0] != '#Life' 
 				load_shape << Coordinate.new(row[0].to_i, row[1].to_i)
-				puts row.inspect
 			end
 		end
 		@world.start_world(load_shape)
@@ -26,14 +25,14 @@ class GameWindow < Gosu::Window
 	end
 
 	def draw
-		size = @world.size
+		size = [@world.size, 40].max
 		ratio = WINDOW_SIZE / size
 		@world.cells.each do |cell|
 			x = cell.x * ratio + 400
 			y = cell.y * ratio + 400
 			Gosu.draw_rect(x,y,ratio, ratio, @color)
 		end
-		sleep 1
+		# sleep 1
 		@world.tick
 	end
 end
