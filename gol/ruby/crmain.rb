@@ -1,8 +1,10 @@
 require 'set'
-require "./crcore.rb"
+require './crcore.rb'
 require 'gosu'
+require 'csv'
 
 WINDOW_SIZE = 800
+
 
 class GameWindow < Gosu::Window
 	def initialize
@@ -10,9 +12,14 @@ class GameWindow < Gosu::Window
 		self.caption = "Game of Life"
 		@color = Gosu::Color.new(0xff_ffffff)
 		@world = World.new
-		@world.start_world(TOAD)
-
-
+		load_shape = Set.new
+		CSV.foreach('glider_106.lif', { :col_sep => ' '}) do |row|
+			if row[0] != '#Life' 
+				load_shape << Coordinate.new(row[0].to_i, row[1].to_i)
+				puts row.inspect
+			end
+		end
+		@world.start_world(load_shape)
 	end
 
 	def update
@@ -34,6 +41,8 @@ end
 SQUARE = Set.new << Coordinate.new(1,0) << Coordinate.new(1,1) << Coordinate.new(0,0) << Coordinate.new(0,1)
 BLINKER = Set.new << Coordinate.new(1,0) << Coordinate.new(1,1) << Coordinate.new(1,2)
 TOAD = Set.new << Coordinate.new(1,0) << Coordinate.new(1,1) << Coordinate.new(1,2) << Coordinate.new(1,3) << Coordinate.new(0,1) << Coordinate.new(0,2) << Coordinate.new(0,3) << Coordinate.new(0,4)
+
+
 
 
 # world = World.new
