@@ -6,18 +6,10 @@ def adjacent?(a,b)
 	(a.x - b.x).abs < 2 and (a.y - b.y).abs < 2
 end
 
-def print_cell(cell)
-	puts "x = #{cell.x} y = #{cell.y}"
-end
-
 class World
 	attr_reader :cells
 	def initialize
 		@cells = Set.new
-	end
-
-	def add_point(cell)
-		@cells << cell
 	end
 
 	def contains?(cell)
@@ -37,6 +29,7 @@ class World
 				end
 			end
 		end
+
 		@candidates.subtract(@cells)
 	end
 
@@ -66,7 +59,6 @@ class World
 			@cells = new_world
 			return true
 		end
-
 	end
 
 	def size
