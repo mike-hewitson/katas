@@ -10,28 +10,30 @@ class GameWindow < Gosu::Window
 		super WINDOW_SIZE, WINDOW_SIZE
 		self.caption = "Game of Life"
 		@color = Gosu::Color.new(0xff_ffffff)
+		@world = World.new
 		filename = "../data/" + ARGV.first + "_106.lif"
-		@cells = Set.new
+		load_shape = Set.new
 		CSV.foreach(filename, { :col_sep => ' '}) do |row|
 			if row[0] != '#Life' 
-				@cells << Coordinate.new(row[0].to_i, row[1].to_i)
+				load_shape << Coordinate.new(row[0].to_i, row[1].to_i)
 			end
 		end
+		@world.start_world(load_shape)
 	end
 
 	def update
 	end
 
 	def draw
-		thing_size = [size(@cells), 40].max
-		ratio = WINDOW_SIZE / thing_size
-		@cells.each do |cell|
+		size = [@world.size, 40].max
+		ratio = WINDOW_SIZE / size
+		@world.cells.each do |cell|
 			x = cell.x * ratio + 400
 			y = cell.y * ratio + 400
 			Gosu.draw_rect(x,y,ratio, ratio, @color)
 		end
 		sleep 0.5
-		@cells = tick(@cells)
+		@world.tick
 	end
 end
 
