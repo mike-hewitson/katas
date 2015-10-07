@@ -40,8 +40,7 @@ def tick(cells)
 end
 
 def size(cells)
-	size = cells.map{|cell| [cell.x.abs, cell.y.abs].max}.max
-	return size * 2 + 20
+	cells.map{|cell| [cell.x.abs, cell.y.abs].max}.max * 2 + 20
 end
 
 def print_me(cells)
