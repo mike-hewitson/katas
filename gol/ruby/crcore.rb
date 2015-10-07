@@ -74,6 +74,11 @@ class World
 		return size + 20
 	end
 
+	def center
+		center = Coordinate.new
+
+	end
+
 	def start_world(shape)
 		@cells = shape
 	end
