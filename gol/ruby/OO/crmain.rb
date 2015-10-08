@@ -8,7 +8,7 @@ WINDOW_SIZE = 800
 class GameWindow < Gosu::Window
 	def initialize
 		super WINDOW_SIZE, WINDOW_SIZE
-		self.caption = "Game of Life"
+		self.caption = "Game of Life - " + ARGV.first
 		@color = Gosu::Color.new(0xff_ffffff)
 		@world = World.new
 		filename = "../data/" + ARGV.first + "_106.lif"
@@ -25,11 +25,11 @@ class GameWindow < Gosu::Window
 	end
 
 	def draw
-		size = [@world.size, 40].max
-		ratio = WINDOW_SIZE / size
+		thing_size = [@world.size, 40].max
+		ratio = WINDOW_SIZE / thing_size
 		@world.cells.each do |cell|
-			x = cell.x * ratio + 400
-			y = cell.y * ratio + 400
+			x = cell.x * ratio + 400 - thing_size / 2
+			y = cell.y * ratio + 400 - thing_size / 2
 			Gosu.draw_rect(x,y,ratio, ratio, @color)
 		end
 		sleep 0.5
