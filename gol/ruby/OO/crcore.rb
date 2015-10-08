@@ -1,6 +1,7 @@
 require "set"
 
 Coordinate = Struct.new(:x, :y) 
+NEIGHBOUR_LIST = [[-1,-1], [-1,0], [-1,1], [0, -1], [0, 1], [1,-1], [1,0], [1,1]]
 
 def adjacent?(a,b)
 	(a.x - b.x).abs < 2 and (a.y - b.y).abs < 2
@@ -10,6 +11,7 @@ class World
 	attr_reader :cells
 	def initialize
 		@cells = Set.new
+		@candidates = Set.new
 	end
 
 	def contains?(cell)
@@ -17,42 +19,27 @@ class World
 	end
 
 	def neighbours(cell)
-		neighbours = 0
-		for x in cell.x - 1 .. cell.x + 1
-			for y in cell.y - 1 .. cell.y + 1
-				if @cells.include?(Coordinate.new(x,y))
-					if cell != Coordinate.new(x,y)
-						neighbours += 1
-					end
-				end
-			end
-		end
-		return neighbours 
+		NEIGHBOUR_LIST.map{|p| Coordinate.new(p[0]+cell.x, p[1]+cell.y)}.to_set
+	end	
+
+	def neighbours_count(cell)
+		self.neighbours(cell).select{|c| @cells.member?c and cell != c}.length
 	end
 
 	def create_candidates
-		@candidates = Set.new
-		@cells.each do |cell|
-			for x in cell.x - 1 .. cell.x + 1
-				for y in cell.y - 1 .. cell.y + 1
-					@candidates << Coordinate.new(x,y)
-				end
-			end
-		end
-
-		@candidates.subtract(@cells)
+		@candidates = @cells.map{|cell| self.neighbours(cell)}.inject(&:merge).subtract(@cells)
 	end
 
 	def tick
 		new_world = Set.new
 
-		@cells.select{|c| self.neighbours(c).between?(2,3)}.each do |cell|
+		@cells.select{|c| self.neighbours_count(c).between?(2,3)}.each do |cell|
 			new_world << cell
 		end
 
 		self.create_candidates
 
-		@candidates.select{|c| self.neighbours(c) == 3}.each do |cell|
+		@candidates.select{|c| self.neighbours_count(c) == 3}.each do |cell|
 			new_world << cell
 		end
 
@@ -63,11 +50,6 @@ class World
 	def size
 		size = @cells.map{|cell| [cell.x.abs, cell.y.abs].max}.max
 		return size * 2 + 20
-	end
-
-	def center
-		center = Coordinate.new
-
 	end
 
 	def start_world(shape)
