@@ -26,8 +26,8 @@ class GameWindow < Gosu::Window
 		thing_size = [size(@cells), 40].max
 		ratio = WINDOW_SIZE / thing_size
 		@cells.each do |cell|
-			x = cell.x * ratio + 400
-			y = cell.y * ratio + 400
+			x = cell.x * ratio + 400 - thing_size / 2
+			y = cell.y * ratio + 400 - thing_size / 2
 			Gosu.draw_rect(x,y,ratio, ratio, @color)
 		end
 		sleep 0.5
