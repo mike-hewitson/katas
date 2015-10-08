@@ -3,23 +3,12 @@ require "set"
 Coordinate = Struct.new(:x, :y) 
 NEIGHBOUR_LIST = [[-1,-1], [-1,0], [-1,1], [0, -1], [0, 1], [1,-1], [1,0], [1,1]]
 
-
 def neighbours(cell)
 	NEIGHBOUR_LIST.map{|p| Coordinate.new(p[0]+cell.x, p[1]+cell.y)}.to_set
 end
 
 def neighbours_count(cell, cells)
-	count = 0
-	for x in cell.x - 1 .. cell.x + 1
-		for y in cell.y - 1 .. cell.y + 1
-			if cells.member?(Coordinate.new(x,y))
-				if cell != Coordinate.new(x,y)
-					count += 1
-				end
-			end
-		end
-	end
-	return count 
+	neighbours(cell).select{|c| cells.member?c and cell != c}.length
 end
 
 def create_candidates(cells)
@@ -27,7 +16,7 @@ def create_candidates(cells)
 end
 
 def world_tick(cells)
-		(cells.select{|c| neighbours_count(c, cells).between?(2,3)} | 
+	(cells.select{|c| neighbours_count(c, cells).between?(2,3)} | 
 		 create_candidates(cells).select{|c| neighbours_count(c, cells) == 3}).to_set
 end
 
