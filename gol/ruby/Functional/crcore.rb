@@ -1,11 +1,11 @@
 require "set"
 
 Coordinate = Struct.new(:x, :y) 
-NEIGHBOUR_LIST = ([[-1,-1], [-1,0], [-1,1], [0, -1], [0, 1], [1,-1], [1,0], [1,1]].map{|p| Coordinate.new(p[0], p[1])}).to_set
+NEIGHBOUR_LIST = [[-1,-1], [-1,0], [-1,1], [0, -1], [0, 1], [1,-1], [1,0], [1,1]]
 
 
 def neighbours(cell)
-	NEIGHBOUR_LIST.map{|c| Coordinate.new(c.x+cell.x, c.y+cell.y)}.to_set
+	NEIGHBOUR_LIST.map{|p| Coordinate.new(p[0]+cell.x, p[1]+cell.y)}.to_set
 end
 
 def neighbours_count(cell, cells)
@@ -43,5 +43,4 @@ def print_me(cells, name="world")
 	puts "-----#{cells.size}-----"
 end
 
-print_me NEIGHBOUR_LIST
 
