@@ -24,6 +24,12 @@ def size(cells)
 	cells.map{|cell| [cell.x.abs, cell.y.abs].max}.max * 2 + 20
 end
 
+def center(cells)
+	x = cells.inject{|sum , cell| sum += cell.x}
+	y = cells.inject{|sum , cell| sum += cell.y}
+	Coordinate.new(x,y)
+end
+
 def print_me(cells, name="world")
 	puts name
 	cells.each do |cell|
