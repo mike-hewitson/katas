@@ -8,7 +8,7 @@ WINDOW_SIZE = 800
 class GameWindow < Gosu::Window
 	def initialize
 		super WINDOW_SIZE, WINDOW_SIZE
-		self.caption = "Game of Life"
+		self.caption = "Game of Life - " + ARGV.first
 		@color = Gosu::Color.new(0xff_ffffff)
 		filename = "../data/" + ARGV.first + "_106.lif"
 		@cells = Set.new
@@ -31,7 +31,7 @@ class GameWindow < Gosu::Window
 			Gosu.draw_rect(x,y,ratio, ratio, @color)
 		end
 		sleep 0.5
-		@cells = tick(@cells)
+		@cells = world_tick(@cells)
 	end
 end
 
