@@ -78,4 +78,35 @@ describe Add, '#add_string' do
       end
     end
   end
+  context 'given a list of numbers with a multi-character delimiter' do
+    it 'it should return the sum' do
+      property_of {
+        delim_length = range(1, 5)
+        delim = Rantly { sized(delim_length) { string(:alpha) } }
+        [array(10) { range(0, 1_000) }, delim]
+      }.check do |(array, delim)|
+        sum = array.select.inject(:+)
+        string = array.join(delim)
+        string = "//[#{delim}]\n" + string
+        # puts string
+        expect(Add.add_string(string)).to eql(sum)
+      end
+    end
+  end
+  # context 'given a list of numbers with a many multi-character delimiter' do
+  #   it 'it should return the sum' do
+  #     property_of {
+  #       delim_length = range(1, 1)
+  #       delim_num = range(1,5)
+  #       delims = [array(delim_num) { Rantly { sized(delim_length) { string(:alpha) } } }
+  #       [array(10) { range(0, 1_000) }, delim]
+  #     }.check do |(array, delims)|
+  #       sum = array.select.inject(:+)
+  #       string = array.join(delims[0])
+  #       string = "//[#{delim}]\n" + string
+  #       puts string
+  #       expect(Add.add_string(string)).to eql(sum)
+  #     end
+  #   end
+  # end
 end
