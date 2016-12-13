@@ -1,6 +1,10 @@
-(ns withspec.core)
+(ns withspec.core
+  (require [clojure.spec :as s]))
 
-(defn foo
-  "I don't do a whole lot."
+(defn stringkata
+  "return "
   [x]
-  (println x "Hello, World!"))
+  0)
+
+(s/def ::string string?)
+(s/valid? ::string "")
