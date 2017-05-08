@@ -1,5 +1,5 @@
 (ns withspec.core
-  (require [clojure.spec :as s]))
+  (:require [clojure.spec :as s]))
 
 (defn stringkata
   "return "
@@ -8,3 +8,5 @@
 
 (s/def ::string string?)
 (s/valid? ::string "")
+
+(stringkata "")
